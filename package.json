@@ -1,0 +1,13 @@
+{
+  "name": "ai-booilerplate-v2",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/frontend"
+  ],
+  "scripts": {
+    "lint": "npm run lint --workspace=apps/frontend",
+    "build": "npm run build --workspace=apps/frontend",
+    "dev": "npm run dev --workspace=apps/frontend"
+  }
+}
