@@ -1,0 +1,4 @@
+-- Storage bucket and policy placeholders
+-- Run via Supabase CLI to apply storage configuration
+-- create bucket if not exists
+-- supabase storage create-bucket documents --public

@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install frontend deps
+        run: npm install --workspace apps/frontend
+      - name: Lint frontend
+        run: npm run lint --workspace apps/frontend
+      - name: Build frontend
+        run: npm run build --workspace apps/frontend
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install backend deps
+        run: pip install fastapi uvicorn[standard] pydantic python-dotenv httpx supabase beautifulsoup4 openai
+      - name: Backend unit smoke
+        run: python - <<'PY'
+import importlib
+import sys
+for module in ["fastapi", "supabase", "bs4"]:
+    importlib.import_module(module)
+print("Backend dependencies import successfully")
+PY
