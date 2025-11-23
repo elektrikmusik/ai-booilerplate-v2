@@ -19,14 +19,10 @@ export function ThemeProvider({
   defaultTheme?: "light" | "dark" | "system";
   storageKey?: string;
 }) {
-  const [theme, setTheme] = useState<"light" | "dark" | "system">(defaultTheme);
-
-  useEffect(() => {
-    const storedTheme = localStorage.getItem(storageKey) as typeof theme | null;
-    if (storedTheme) {
-      setTheme(storedTheme);
-    }
-  }, [storageKey]);
+  const [theme, setTheme] = useState<"light" | "dark" | "system">(() => {
+    const storedTheme = localStorage.getItem(storageKey) as "light" | "dark" | "system" | null;
+    return storedTheme || defaultTheme;
+  });
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -48,3 +44,4 @@ export function useTheme() {
   if (!context) throw new Error("useTheme must be used within a ThemeProvider");
   return context;
 }
+

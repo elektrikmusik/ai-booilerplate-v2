@@ -8,6 +8,16 @@
   "scripts": {
     "lint": "npm run lint --workspace=apps/frontend",
     "build": "npm run build --workspace=apps/frontend",
-    "dev": "npm run dev --workspace=apps/frontend"
+    "dev": "npm run dev --workspace=apps/frontend",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2"
+  },
+  "lint-staged": {
+    "apps/frontend/**/*.{ts,tsx,js,jsx}": [
+      "npm run lint --workspace=apps/frontend"
+    ]
   }
 }

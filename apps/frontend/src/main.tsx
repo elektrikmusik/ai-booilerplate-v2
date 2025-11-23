@@ -5,7 +5,8 @@ import { createRoot } from "react-dom/client";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { routeTree } from "./routeTree.gen";
-import { ThemeProvider } from "./components/theme-provider";
+import { ThemeProvider } from "./components/shared/theme-provider";
+import { AuthProvider } from "./lib/auth";
 
 const router = createRouter({ routeTree });
 const queryClient = new QueryClient();
@@ -20,7 +21,9 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="system" storageKey="ai-boilerplate-theme">
-        <RouterProvider router={router} />
+        <AuthProvider>
+          <RouterProvider router={router} />
+        </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>
   </StrictMode>,
